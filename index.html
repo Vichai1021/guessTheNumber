@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Guess a number</title>
+</head>
+<body>
+	<h1>Guess a number</h1>
+	<p>Guess a number between 1 to 100</p>
+	<input type="number" id="userNumber">
+	<button onClick="guessPressed()" id="guessBtn">Guess the number</button>
+	<button onClick= "restartPressed()" hidden ="true" id="restartBtn" >Restart game!</button>
+	<p id="message"></p>
+	<p id="chances"></p>
+
+	<script type="text/javascript">
+		var randomNumber = Math.ceil(Math.random()*100);
+		var chances = 5;
+
+		function restartPressed(){
+			chances = 5;
+			randomNumber= Math.ceil(Math.random()*100);
+			document.getElementById("guessBtn").removeAttribute("disabled");
+			document.getElementById("restartBtn").setAttribute("hidden", true);
+			document.getElementById("message").innerHTML = "";
+			document.getElementById("chances").innerHTML = "";
+			document.getElementById("userNumber").value = "";
+
+		}
+
+		function guessPressed(){
+			var userNumber = document.getElementById("userNumber").value
+			var message = "";
+			var chanceMessage = "";
+			chances--;
+			if(randomNumber > userNumber){
+				message ="Number too small, try again."
+				
+				chanceMessage = chances + " chances remaining"
+
+			}
+			else if(randomNumber <userNumber){
+				message = "Number too big, try again."
+				
+				chanceMessage = chances + " chances remaining"
+
+			}
+
+			else {
+				message = "Congratulation, you are correct."
+				
+
+		        }
+		        document.getElementById("message").innerHTML = message;
+		        document.getElementById("chances").innerHTML = chanceMessage;
+		        if (chances ==0 ){
+		        	document.getElementById("message").innerHTML = "Game over. The number is " + randomNumber;
+		        	document.getElementById("guessBtn").setAttribute("disabled", true);
+		        	document.getElementById("restartBtn").removeAttribute("hidden");
+		        }
+		        
+		        
+			}
+
+
+	</script>
+
+</body>
+</html>
